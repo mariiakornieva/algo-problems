@@ -8,18 +8,32 @@
 #include <vector>
 #include <set>
 
-class Solution {
+class SolutionLinearSpace {
 public:
     int singleNumber(std::vector<int> const& nums) {
         std::set<int> s;
-        for (auto elem : nums) {
-            if (std::end(s) != s.find(elem)) {
-                s.erase(elem);
+        for (auto number : nums) {
+            if (std::end(s) != s.find(number)) {
+                s.erase(number);
             } else {
-                s.insert(elem);
+                s.insert(number);
             }
         }
         return *s.begin();
+    }
+};
+
+class SolutionConstantSpace {
+public:
+    // 1^1 == 0
+    // 1^0 == 1
+    // 5^2^5 == 5^5^2 == 0^2 == 2
+    int singleNumber(std::vector<int> const& nums) {
+        int single = 0;
+        for (auto number : nums) {
+            single ^= number;
+        }
+        return single;
     }
 };
 
