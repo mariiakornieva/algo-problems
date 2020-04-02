@@ -12,7 +12,7 @@
 
 #include <unordered_set>
 
-class Solution {
+class SolutionLinearSpace {
 public:
     bool isHappy(int n) {
         std::unordered_set<int> numbers;
@@ -34,6 +34,31 @@ public:
                 sum = 0;
             }
         }
+        return false;
+    }
+};
+
+
+// Solution in O(1) space using the Floyd's Cycle Detection Algorithm
+class SolutionConstantSpace {
+public:
+    int sumSquaredDigits(int n) {
+        int sum = 0;
+        while (n) {
+            sum += std::pow(n % 10, 2);
+            n /= 10;
+        }
+        return sum;
+    }
+
+    bool isHappy(int n) {
+        int slow = n;
+        int fast = n;
+        do {
+            slow = sumSquaredDigits(slow);
+            fast = sumSquaredDigits(sumSquaredDigits(fast));
+            if (fast == 1) return true;
+        } while (slow != fast);
         return false;
     }
 };
