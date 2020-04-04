@@ -54,6 +54,13 @@ public:
     }
 };
 
+// Divide and Conquer
+class Solution {
+public:
+    int maxSubArray(std::vector<int> const& nums) {
+
+    }
+};
 
 int main() {
     SolutionRecursive sol;
