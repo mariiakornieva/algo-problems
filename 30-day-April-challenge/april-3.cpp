@@ -35,9 +35,7 @@ public:
 class SolutionRecursive {
     private:
     int maxSubarraySum(std::vector<int> const& nums, int i, int& maxSum) {
-        if (i == 0) {
-            return std::max(nums[i], maxSum);
-        }
+        if (i == 0) return std::max(nums[i], maxSum);
 
         int newMax = std::max(nums[i], maxSubarraySum(nums, i-1, maxSum) + nums[i]);
         maxSum = std::max(newMax, maxSum);
