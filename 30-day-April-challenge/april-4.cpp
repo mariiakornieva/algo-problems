@@ -1,6 +1,11 @@
 /*
 *   Move Zeroes
+* Given an array nums, write a function to move all 0's
+* to the end of it while maintaining the relative order
+* of the non-zero elements.
 * 
+* You must do this in-place without making a copy of the array.
+* Minimize the total number of operations.
 */
 
 #include <vector>
