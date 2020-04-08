@@ -56,12 +56,30 @@ public:
 class Solution {
 public:
     int maxSubArray(std::vector<int> const& nums) {
+        if (nums.size() == 1) return nums[0];
 
+        int left = std::numeric_limits<int>::min();
+        int const mid = (nums.size() - 1) / 2;
+        int sum = 0;
+        for (int i = mid; i >= 0; --i) {
+            sum += nums[i];
+            left = std::max(left, sum);
+        }
+        sum = 0;
+        int right = std::numeric_limits<int>::min();
+        for (int i = mid + 1; i < nums.size(); ++i) {
+            sum += nums[i];
+            right = std::max(right, sum);
+        }
+
+        return std::max({maxSubArray({nums.cbegin(), nums.cbegin() + mid + 1}),
+                         maxSubArray({nums.cbegin() + mid + 1, nums.cend()}),
+                         left + right});
     }
 };
 
 int main() {
-    SolutionRecursive sol;
+    Solution sol;
     std::vector<int> v{-2,1,-3,4,-1,2,1,-5,4};
     std::cout << sol.maxSubArray(v) << "\n";
 }
