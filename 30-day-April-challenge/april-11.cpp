@@ -2,6 +2,8 @@
 *   Diameter of Binary Tree
 */
 
+#include <utility>
+
 
 struct TreeNode {
      int val;
@@ -13,21 +15,20 @@ struct TreeNode {
 
 class Solution {
 private:
-    int traverse(TreeNode* root, int& diam) {
-        if (!root) return 0;
+    std::pair<int,int> dfs(TreeNode* root) {
+        if (!root) return {0, 0};
 
-        int left = traverse(root->left, diam);
-        int right = traverse(root->right, diam);
-        diam = std::max(diam, left + right);
-        
-        return std::max(left, right) + 1;
+        // pair{diameter, depth};
+        auto left = dfs(root->left);
+        auto right = dfs(root->right);
+        int diam = std::max({left.first, right.first,
+                            left.second + right.second});
+        return {diam, std::max(left.second, right.second) + 1};
     }
 
 public:
     int diameterOfBinaryTree(TreeNode* root) {
         if (!root) return 0;
-        int diam = 0;
-        traverse(root, diam);
-        return diam;
+        return dfs(root).first;
     }
 };
